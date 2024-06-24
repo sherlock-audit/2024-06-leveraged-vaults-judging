@@ -4,7 +4,17 @@ import csv
 
 total_issues = None
 comment_filename = "comments.csv"
-exception_filenames = [".data", ".git", ".github", "README.md", "Audit_Report.pdf", ".gitkeep", ".gitignore", comment_filename]
+exception_filenames = [
+    ".data",
+    ".git",
+    ".github",
+    "README.md",
+    "Audit_Report.pdf",
+    ".gitkeep",
+    ".gitignore",
+    comment_filename,
+]
+
 
 def consume_comment_file():
     with open(comment_filename) as f:
@@ -31,6 +41,7 @@ def consume_comment_file():
                 errors.append("Empty comment on issue %s in the csv" % issue_number)
         return errors
 
+
 def main():
     global total_issues
 
@@ -50,11 +61,7 @@ def main():
         print("Directory %s" % path)
 
         # Get the items in the directory
-        items = [
-            x
-            for x in os.listdir(path)
-            if x not in exception_filenames
-        ]
+        items = [x for x in os.listdir(path) if x not in exception_filenames]
 
         directory_has_report = False
         for item in items:
@@ -63,8 +70,8 @@ def main():
 
             if is_dir:
                 matches = [
-                    r"^(H|M|High|Medium)-\d+$",
-                    r"^\d+-(H|M|High|Medium)$",
+                    r"^(H|M|High|Medium|GH|General-Health|GeneralHealth)-\d+$",
+                    r"^\d+-(H|M|High|Medium|GH|General-Health|GeneralHealth)$",
                     r"^false$",
                     r"^invalid$",
                 ]

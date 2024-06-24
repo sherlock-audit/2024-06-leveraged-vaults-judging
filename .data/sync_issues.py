@@ -127,16 +127,20 @@ def process_directory(repo, path):
         if path == ""
         else any(x in path.lower() for x in ["low", "false", "invalid"])
     )
-    severity = "false"
+    severity = "Invalid"
 
     if not closed:
         directory_severity = None
 
         try:
             directory_severity = (
-                re.match(r"^(H|M|High|Medium)-\d+$", path, re.IGNORECASE)
+                re.match(
+                    r"^(H|M|High|Medium|GH|General-Health|GeneralHealth)-\d+$",
+                    path,
+                    re.IGNORECASE,
+                )
                 .group(1)
-                .upper()[0]
+                .upper()
             )
         except Exception:
             pass
@@ -144,9 +148,13 @@ def process_directory(repo, path):
         if not directory_severity:
             try:
                 directory_severity = (
-                    re.match(r"^\d+-(H|M|High|Medium)$", path, re.IGNORECASE)
+                    re.match(
+                        r"^\d+-(H|M|High|Medium|GH|General-Health|GeneralHealth)$",
+                        path,
+                        re.IGNORECASE,
+                    )
                     .group(1)
-                    .upper()[0]
+                    .upper()
                 )
             except Exception:
                 pass
@@ -175,7 +183,7 @@ def process_directory(repo, path):
         if not parent and (
             len(files) == 1
             or (
-                severity == "false"
+                severity == "Invalid"
                 and path not in ["low", "false", "invalid"]
                 and last_file
             )
@@ -207,7 +215,7 @@ def process_directory(repo, path):
         dir_issues_ids.append(issue_id)
 
     # Set the parent field for all duplicates in this directory
-    if parent is None and severity != "false":
+    if parent is None and severity != "Invalid":
         raise Exception("Family %s does not have a primary file (-best.md)." % path)
 
     if parent:
@@ -244,12 +252,13 @@ def main():
     actual_issue_ids = list(issues.keys())
     expected_issue_ids = list(range(1, max(actual_issue_ids) + 1))
     missing_issue_ids = [x for x in expected_issue_ids if x not in actual_issue_ids]
-    assert (
-        actual_issue_ids == expected_issue_ids
-    ), "Expected issues %s actual issues %s. Missing %s" % (
-        expected_issue_ids,
-        actual_issue_ids,
-        missing_issue_ids,
+    assert actual_issue_ids == expected_issue_ids, (
+        "Expected issues %s actual issues %s. Missing %s"
+        % (
+            expected_issue_ids,
+            actual_issue_ids,
+            missing_issue_ids,
+        )
     )
 
     # Sync issues
@@ -263,10 +272,12 @@ def main():
             issue_labels.append("Duplicate")
 
         if not issue["closed"] or issue["parent"]:
-            if issue["severity"] == "H":
+            if issue["severity"] in ["H", "High"]:
                 issue_labels.append("High")
-            elif issue["severity"] == "M":
+            elif issue["severity"] in ["M", "Medium"]:
                 issue_labels.append("Medium")
+            elif issue["severity"] in ["GH", "General-Health", "GeneralHealth"]:
+                issue_labels.append("General Health")
 
         if issue["closed"] and not issue["parent"]:
             issue_labels.append("Excluded")
@@ -285,6 +296,8 @@ def main():
                     new_labels.remove("High")
                 if "Medium" in existing_labels:
                     new_labels.remove("Medium")
+                if "General Health" in existing_labels:
+                    new_labels.remove("General Health")
                 if "Has Duplicates" in existing_labels:
                     new_labels.remove("Has Duplicates")
                 if "Duplicate" in existing_labels:
