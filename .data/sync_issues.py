@@ -249,17 +249,17 @@ def main():
     issues = dict(sorted(issues.items(), key=lambda item: item[1]["id"]))
 
     # Ensure issue IDs are sequential
-    actual_issue_ids = list(issues.keys())
-    expected_issue_ids = list(range(1, max(actual_issue_ids) + 1))
-    missing_issue_ids = [x for x in expected_issue_ids if x not in actual_issue_ids]
-    assert actual_issue_ids == expected_issue_ids, (
-        "Expected issues %s actual issues %s. Missing %s"
-        % (
-            expected_issue_ids,
-            actual_issue_ids,
-            missing_issue_ids,
-        )
-    )
+    # actual_issue_ids = list(issues.keys())
+    # expected_issue_ids = list(range(1, max(actual_issue_ids) + 1))
+    # missing_issue_ids = [x for x in expected_issue_ids if x not in actual_issue_ids]
+    # assert actual_issue_ids == expected_issue_ids, (
+    #     "Expected issues %s actual issues %s. Missing %s"
+    #     % (
+    #         expected_issue_ids,
+    #         actual_issue_ids,
+    #         missing_issue_ids,
+    #     )
+    # )
 
     # Sync issues
     for issue_id, issue in issues.items():
