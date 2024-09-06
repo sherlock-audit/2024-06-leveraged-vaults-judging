@@ -231,6 +231,16 @@ Escalation status:
 
 #6, #41, and #89 are the only three reports submitting this finding.
 
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/106
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
 # Issue H-2: Lido withdraw limitation will brick the withdraw process in an edge case 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/14 
@@ -340,6 +350,20 @@ Escalations have been resolved successfully!
 
 Escalation status:
 - [novaman33](https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/14/#issuecomment-2222897585): accepted
+
+**jeffywu**
+
+This issue is resolved by removing the Lido stETH withdraw in favor of an ETH withdraw.
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/92
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
 
 # Issue H-3: Selling sUSDe is vulnerable to sandwich attack when staked token is DAI 
 
@@ -477,6 +501,20 @@ Add a slippage parameter to the first trade as well or use the `minPurchaseAmoun
         }
     }
 ```
+
+
+
+## Discussion
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/93/files
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
 
 # Issue H-4: `EtherFiLib::_initiateWithdrawImpl` will revert because rebase tokens transfer 1-2 less wei 
 
@@ -689,6 +727,16 @@ Escalations have been resolved successfully!
 Escalation status:
 - [ZeroTrust01](https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/43/#issuecomment-2227151516): accepted
 
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/94/files
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
 # Issue H-5: Incorrect valuation of vault share 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/60 
@@ -855,9 +903,25 @@ Let's redo the calculation to verify that the new formula works as intended:
 
 The new formula returned  500 units of $BT$, which is correct.
 
+
+
+## Discussion
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/102
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
 # Issue H-6: Loss of rewards due to continuous griefing attacks on L2 environment 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/61 
+
+The protocol has acknowledged this issue.
 
 ## Found by 
 nirohgo, xiaoming90
@@ -1193,9 +1257,15 @@ Escalations have been resolved successfully!
 Escalation status:
 - [xiaoming9090](https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/61/#issuecomment-2227180243): accepted
 
+**jeffywu**
+
+Marking this as won't fix, I don't see a reason why this would happen. If it does we would perhaps consider guarding this claim method.
+
 # Issue H-7: Users can deny the vault from claiming reward tokens 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/63 
+
+The protocol has acknowledged this issue.
 
 ## Found by 
 DenTonylifer, xiaoming90
@@ -1437,6 +1507,10 @@ Escalations have been resolved successfully!
 
 Escalation status:
 - [xiaoming9090](https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/63/#issuecomment-2227178782): accepted
+
+**jeffywu**
+
+Similar to #61, won't fix unless we ever see this becoming an issue. I think this is more of a hypothetical attack vector than a real one. If we had to fix this we would have to create some sort of manual override to the reward calculation.
 
 # Issue H-8: Malicious users can steal reward tokens via re-entrancy attack 
 
@@ -1897,6 +1971,16 @@ Escalation status:
 
 @xiaoming9090 @mystery0x @brakeless-wtp are there any duplicates?
 
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/96
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
 # Issue H-9: Wrong decimal precision resulted in the price being inflated 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/66 
@@ -2036,6 +2120,24 @@ Manual Review
 
 Update the formula to ensure that the PT rate is divided by the rate decimals of Pendle's PT Oracle.
 
+
+
+## Discussion
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/97
+
+
+**xiaoming9090**
+
+Additional changes made in https://github.com/notional-finance/leveraged-vaults/pull/86/commits/3c5e13050e6bc7d278b401118c03bfed3a787d87
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
 # Issue H-10: Incorrect assumption that PT rate is 1.0 post-expiry 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/69 
@@ -2156,6 +2258,20 @@ Manual Review
 
 Ensure that the correct PT rate is used post-expiry.
 
+
+
+## Discussion
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/98
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
 # Issue H-11: Lack of slippage control on `_redeemPT` function 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/70 
@@ -2266,6 +2382,20 @@ Manual Review
 ## Recommendation
 
 Consider implementing the required slippage control.
+
+
+
+## Discussion
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/99
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
 
 # Issue H-12: The withdrawValue calculation in _calculateValueOfWithdrawRequest is incorrect. 
 
@@ -2695,6 +2825,16 @@ Escalations have been resolved successfully!
 Escalation status:
 - [0502lian](https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/78/#issuecomment-2226677373): accepted
 
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/90/commits
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
 # Issue H-13: `Kelp:_finalizeCooldown` cannot claim the withdrawal if adversary would requestWithdrawals with dust amount for the holder 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/105 
@@ -2902,6 +3042,20 @@ Escalations have been resolved successfully!
 Escalation status:
 - [xiaoming9090](https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/105/#issuecomment-2227181802): accepted
 
+**jeffywu**
+
+As a fix for this issue, we are switching to direct ETH withdraws from Kelp instead of stETH. This was not supported at the time we wrote the code but is now supported.
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/92
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
 # Issue M-1: _claimRewardToken() will update accountRewardDebt even when there is a failure during reward claiming, as a result, a user might lose rewards. 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/1 
@@ -3000,6 +3154,12 @@ function _claimRewardToken(
 While this is a valid, it's not clear what an alternative behavior would be. In the event that the transfer fails, there is no clear path to getting the token accounting back to a proper amount. We also do not want to allow the transaction to revert or this would block liquidations from being processed.
 
 In the case where token receivers are blacklisted, not receiving rewards is probably the least bad of all potential outcomes.
+
+**jeffywu**
+
+Confirming that we will not fix this issue. If users are blacklisted or unable to receive rewards, those rewards will still be on the contract and may be transferrable via some other route after an upgrade. Any other solution here may cause the system to revert which would break liquidations.
+
+In my opinion, some reward token becoming untransferrable to an account is not very likely.
 
 # Issue M-2: After a liquidator liquidates someone else’s position, it could cause a Denial of Service (DoS) when their own position also needs to be liquidated. 
 
@@ -3186,7 +3346,17 @@ Escalations have been resolved successfully!
 Escalation status:
 - [0502lian](https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/44/#issuecomment-2226689596): accepted
 
-# Issue M-3: Premature collateralization check in the `BaseStakingVault.initiateWithdraw()` function can leave accounts undercollateralized 
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/88
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
+# Issue M-3: Premature collateralization check in the BaseStakingVault.initiateWithdraw() function can leave accounts undercollateralized 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/56 
 
@@ -3325,6 +3495,16 @@ Escalations have been resolved successfully!
 Escalation status:
 - [xiaoming9090](https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/56/#issuecomment-2227213410): accepted
 
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/95/files
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
 # Issue M-4: `rescueTokens` feature is broken 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/72 
@@ -3460,6 +3640,16 @@ Nope. #72 and #100 are the only two reports submitting this finding.
 **lemonmon1984**
 
 @mystery0x the labels on #100 hasn't been updated yet.
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/100
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
 
 # Issue M-5: Protocol could be DOS by transfer error due to lack of code length check 
 
@@ -3683,6 +3873,16 @@ Escalation status:
 
 @xiaoming9090 @mystery0x @brakeless-wtp are there any duplicates?
 
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/101
+
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
+
 # Issue M-6: The _getValueOfWithdrawRequest function uses different methods for selecting assets in various vaults. 
 
 Source: https://github.com/sherlock-audit/2024-06-leveraged-vaults-judging/issues/80 
@@ -3858,4 +4058,18 @@ At that time, I should have included more detailed impacts of rsETH value fluctu
 - (2) Usually, during the Judge Contest phase, the Lead Judge for less clear issues will ask The Watson to provide a more detailed PoC. I don’t know why this Contest did not ask any Watson to provide one. If there had been such an opportunity, The Watson could have had the chance to add what they know.
 
 I agree to let the Sherlock judge make the final decision.
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/notional-finance/leveraged-vaults/pull/91
+
+
+**xiaoming9090**
+
+Additional change made https://github.com/notional-finance/leveraged-vaults/commit/de862c8fdb64d7e5f5b0eccc6807d6732f22fc99 and https://github.com/notional-finance/leveraged-vaults/pull/86/commits/3c5e13050e6bc7d278b401118c03bfed3a787d87
+
+**sherlock-admin2**
+
+The Lead Senior Watson signed off on the fix.
 
